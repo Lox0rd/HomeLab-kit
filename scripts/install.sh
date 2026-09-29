@@ -113,12 +113,15 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=homelab
+Group=homelab
 WorkingDirectory=$PROJECT_ROOT/agent
 Environment="PATH=$PROJECT_ROOT/agent/venv/bin:\$PATH"
 Environment="PYTHONPATH=$PROJECT_ROOT/agent"
 ExecStart=$PROJECT_ROOT/agent/venv/bin/python -m homelab_agent
 Restart=on-failure
 RestartSec=5
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
