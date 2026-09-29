@@ -110,7 +110,8 @@ Wants=network-online.target
 Type=simple
 User=homelab
 WorkingDirectory=$PROJECT_ROOT/agent
-Environment="PATH=$PROJECT_ROOT/agent/venv/bin"
+Environment="PATH=$PROJECT_ROOT/agent/venv/bin:\$PATH"
+Environment="PYTHONPATH=$PROJECT_ROOT/agent"
 ExecStart=$PROJECT_ROOT/agent/venv/bin/python -m homelab_agent
 Restart=on-failure
 RestartSec=5

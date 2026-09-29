@@ -30,7 +30,7 @@ class Lab(Base):
     title = Column(String)
     difficulty = Column(String)  # beginner, intermediate, advanced
     estimated_time = Column(Integer)  # minutes
-    metadata = Column(JSON)  # Полные данные из YAML
+    lab_metadata = Column(JSON)  # Полные данные из YAML
 
 
 class LabProgress(Base):
