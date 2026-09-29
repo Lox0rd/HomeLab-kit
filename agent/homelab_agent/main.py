@@ -20,7 +20,7 @@ app = FastAPI(
 # Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://homelab.local", "http://localhost:3000", "http://localhost:5173"],
+    allow_origins=["https://homelab.local", "http://localhost:3000", "http://localhost:5173", "http://192.168.0.*", "https://192.168.0.*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -28,7 +28,7 @@ app.add_middleware(
 
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["homelab.local", "localhost", "127.0.0.1"]
+    allowed_hosts=["homelab.local", "localhost", "127.0.0.1", "192.168.0.*"]
 )
 
 # Include routers
