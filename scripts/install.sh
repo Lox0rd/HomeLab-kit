@@ -160,17 +160,17 @@ upstream homelab_agent {
 }
 
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name homelab.local _;
+    listen 80;
+    listen [::]:80;
+    server_name _;
 
     return 301 https://$host$request_uri;
 }
 
 server {
-    listen 443 ssl default_server;
-    listen [::]:443 ssl default_server;
-    server_name homelab.local _;
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name _;
 
     ssl_certificate /etc/ssl/certs/homelab.crt;
     ssl_certificate_key /etc/ssl/private/homelab.key;
