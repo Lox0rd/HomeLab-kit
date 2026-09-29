@@ -8,21 +8,17 @@ from starlette.authentication import AuthCredentials
 from ..config import settings
 from ..database import get_db, User
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 security = HTTPBearer()
 
 router = APIRouter(prefix="/api/v1", tags=["auth"])
 
 
 def hash_password(password: str) -> str:
-    # Truncate password to 72 bytes (bcrypt limit)
-    password = password[:72]
     return pwd_context.hash(password)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    # Truncate password to 72 bytes (bcrypt limit)
-    plain_password = plain_password[:72]
     return pwd_context.verify(plain_password, hashed_password)
 
 
