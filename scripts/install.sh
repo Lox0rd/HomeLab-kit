@@ -39,13 +39,20 @@ echo "Updating system packages..."
 apt-get update
 apt-get upgrade -y
 
+# Add deadsnakes PPA for Python 3.12
+echo ""
+echo "Adding Python 3.12 repository..."
+apt-get install -y software-properties-common
+add-apt-repository -y ppa:deadsnakes/ppa
+apt-get update
+
 # Install dependencies
 echo ""
 echo "Installing dependencies..."
 apt-get install -y \
     python3.12 \
+    python3.12-venv \
     python3-pip \
-    python3-venv \
     nodejs \
     npm \
     docker.io \

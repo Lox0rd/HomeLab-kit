@@ -25,7 +25,7 @@
 ### На чистой Ubuntu 24.04 LTS x86_64:
 
 ```bash
-git clone https://github.com/your-org/homelab.git
+git clone https://github.com/Lox0rd/HomeLab-Kit
 cd homelab
 sudo ./scripts/install.sh
 ```
