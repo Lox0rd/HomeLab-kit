@@ -76,6 +76,10 @@ else
     echo -e "${YELLOW}✓ homelab user already exists${NC}"
 fi
 
+# Ensure homelab user can read agent directory
+chown -R homelab:homelab "$PROJECT_ROOT/agent"
+chmod -R u+rx "$PROJECT_ROOT/agent"
+
 # Setup admin credentials
 echo ""
 echo "Setting up admin credentials..."
