@@ -80,6 +80,10 @@ fi
 chown -R homelab:homelab "$PROJECT_ROOT/agent"
 chmod -R u+rx "$PROJECT_ROOT/agent"
 
+# Also give homelab user access to parent directories for navigation
+chmod o+x "$(dirname "$PROJECT_ROOT")" 2>/dev/null || true
+chmod o+x "$PROJECT_ROOT" 2>/dev/null || true
+
 # Setup admin credentials
 echo ""
 echo "Setting up admin credentials..."
