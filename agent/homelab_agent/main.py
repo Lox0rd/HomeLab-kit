@@ -5,7 +5,8 @@ import logging
 
 from .config import settings
 from .database import Base, engine
-from .api import health, labs, auth, system, docker, services, settings
+from .api import health, labs, auth, system, docker, services
+from .api import settings as settings_api
 
 # Create tables
 Base.metadata.create_all(bind=engine)
@@ -33,7 +34,7 @@ app.include_router(labs.router)
 app.include_router(system.router)
 app.include_router(docker.router)
 app.include_router(services.router)
-app.include_router(settings.router)
+app.include_router(settings_api.router)
 
 # Logging
 logging.basicConfig(level=logging.INFO)
