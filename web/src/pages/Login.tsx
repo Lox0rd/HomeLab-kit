@@ -32,13 +32,13 @@ export function Login() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+    <div className="flex items-center justify-center min-h-screen bg-light-surface dark:bg-dark-surface">
+      <div className="w-full max-w-md bg-light-surface dark:bg-dark-surface rounded-lg shadow-md p-8">
         <h1 className="text-3xl font-bold text-center mb-8">{i18n.t('login.title')}</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-light-muted dark:text-dark-muted mb-2">
               {i18n.t('login.username')}
             </label>
             <input
@@ -51,7 +51,7 @@ export function Login() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-light-muted dark:text-dark-muted mb-2">
               {i18n.t('login.password')}
             </label>
             <input
@@ -72,7 +72,7 @@ export function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
+            className="w-full bg-accent-primary text-white py-2 rounded-lg font-medium hover:bg-accent-secondary disabled:opacity-50"
           >
             {loading ? i18n.t('login.loggingIn') : i18n.t('login.login')}
           </button>

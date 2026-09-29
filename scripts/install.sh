@@ -33,11 +33,50 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 echo -e "${GREEN}✓ Ubuntu detected${NC}"
 
+# Setup SSH keys for automation
+echo ""
+echo "Setting up SSH keys for remote automation..."
+SSH_DIR="/root/.ssh"
+mkdir -p "$SSH_DIR"
+chmod 700 "$SSH_DIR"
+
+if [ ! -f "$SSH_DIR/id_rsa" ]; then
+    ssh-keygen -t rsa -b 4096 -f "$SSH_DIR/id_rsa" -N "" -C "homelab-automation"
+    echo -e "${GREEN}✓ SSH key pair generated${NC}"
+else
+    echo -e "${YELLOW}✓ SSH key already exists${NC}"
+fi
+
+# Add SSH config for easy access
+cat > "$SSH_DIR/config" << SSH_CONFIG
+Host homelab
+    HostName localhost
+    User homelab
+    IdentityFile ~/.ssh/id_rsa
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+
+Host homelab-remote
+    HostName 192.168.0.105
+    User user
+    IdentityFile ~/.ssh/id_rsa
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+SSH_CONFIG
+
+chmod 600 "$SSH_DIR/config"
+echo -e "${GREEN}✓ SSH config created${NC}"
+
 # Update system
 echo ""
 echo "Updating system packages..."
 apt-get update
 apt-get upgrade -y
+
+# Install expect for SSH automation
+echo ""
+echo "Installing automation tools..."
+apt-get install -y expect
 
 # Add deadsnakes PPA for Python 3.12
 echo ""
@@ -286,6 +325,34 @@ else
     echo -e "${RED}✗ Nginx failed to start${NC}"
     systemctl status nginx
     exit 1
+fi
+
+# Setup SSH key on remote machine for automation
+echo ""
+echo "Setting up remote SSH access for automation..."
+SSH_DIR="/root/.ssh"
+REMOTE_USER="user"
+REMOTE_HOST="192.168.0.105"
+
+if [ -f "$SSH_DIR/id_rsa.pub" ]; then
+    expect << EXPECT_SCRIPT
+set timeout 10
+spawn ssh-copy-id -i "$SSH_DIR/id_rsa" -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST
+expect {
+    "password:" { send "1234\r"; exp_continue }
+    "Number of key(s) added:" { exp_continue }
+    eof { }
+    timeout { exit 1 }
+}
+EXPECT_SCRIPT
+
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✓ SSH key installed on remote machine${NC}"
+    else
+        echo -e "${YELLOW}⚠ Could not install SSH key on remote (may already be installed)${NC}"
+    fi
+else
+    echo -e "${YELLOW}⚠ SSH public key not found${NC}"
 fi
 
 # Print summary

@@ -75,7 +75,7 @@ export default function Diagnostics() {
       case 'INFO':
         return 'bg-blue-100 text-blue-800'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-light-surface dark:bg-dark-surface text-light-text dark:text-dark-text'
     }
   }
 
@@ -100,7 +100,7 @@ export default function Diagnostics() {
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 font-semibold capitalize ${
-                activeTab === tab ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-600'
+                activeTab === tab ? 'border-b-2 border-blue-600 text-blue-600' : 'text-light-muted dark:text-dark-muted'
               }`}
             >
               {i18n.t(`diagnostics.${tab}` as any)}
@@ -110,41 +110,41 @@ export default function Diagnostics() {
 
         {activeTab === 'overview' && diagnostics && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
               <h2 className="text-lg font-semibold mb-4">{i18n.t('diagnostics.systemStatus')}</h2>
               <div className="space-y-3">
-                <div className="flex justify-between p-3 border rounded">
+                <div className="flex justify-between p-3 border border-light-border dark:border-dark-border rounded">
                   <span className="font-medium">{i18n.t('diagnostics.bootTime')}</span>
                   <span className="font-mono">{new Date(diagnostics.boot_time).toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between p-3 border rounded">
+                <div className="flex justify-between p-3 border border-light-border dark:border-dark-border rounded">
                   <span className="font-medium">{i18n.t('diagnostics.uptime')}</span>
                   <span className="font-mono">
                     {Math.floor((Date.now() - new Date(diagnostics.boot_time).getTime()) / 3600000)} {i18n.t('diagnostics.min')}
                   </span>
                 </div>
-                <div className="flex justify-between p-3 border rounded">
+                <div className="flex justify-between p-3 border border-light-border dark:border-dark-border rounded">
                   <span className="font-medium">{i18n.t('diagnostics.runningProcesses')}</span>
                   <span className="font-mono">{diagnostics.process_count}</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
               <h2 className="text-lg font-semibold mb-4">{i18n.t('diagnostics.healthStatus')}</h2>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 border rounded">
+                <div className="flex items-center justify-between p-3 border border-light-border dark:border-dark-border rounded">
                   <span className="font-medium">{i18n.t('diagnostics.errors')}</span>
                   <span className={`px-3 py-1 rounded text-sm ${
-                    diagnostics.error_count > 0 ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                    diagnostics.error_count > 0 ? 'bg-red-100 text-red-800' : 'bg-status-success/10 text-status-success'
                   }`}>
                     {diagnostics.error_count}
                   </span>
                 </div>
-                <div className="flex items-center justify-between p-3 border rounded">
+                <div className="flex items-center justify-between p-3 border border-light-border dark:border-dark-border rounded">
                   <span className="font-medium">{i18n.t('diagnostics.warnings')}</span>
                   <span className={`px-3 py-1 rounded text-sm ${
-                    diagnostics.warning_count > 5 ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'
+                    diagnostics.warning_count > 5 ? 'bg-yellow-100 text-yellow-800' : 'bg-status-success/10 text-status-success'
                   }`}>
                     {diagnostics.warning_count}
                   </span>
@@ -152,19 +152,19 @@ export default function Diagnostics() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6 md:col-span-2">
+            <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6 md:col-span-2">
               <h2 className="text-lg font-semibold mb-4">{i18n.t('diagnostics.loadAverage')}</h2>
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center">
-                  <p className="text-gray-600 text-sm">1 {i18n.t('diagnostics.min')}</p>
+                  <p className="text-light-muted dark:text-dark-muted text-sm">1 {i18n.t('diagnostics.min')}</p>
                   <p className="text-3xl font-bold">{diagnostics.load_average[0].toFixed(2)}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-gray-600 text-sm">5 {i18n.t('diagnostics.min')}</p>
+                  <p className="text-light-muted dark:text-dark-muted text-sm">5 {i18n.t('diagnostics.min')}</p>
                   <p className="text-3xl font-bold">{diagnostics.load_average[1].toFixed(2)}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-gray-600 text-sm">15 {i18n.t('diagnostics.min')}</p>
+                  <p className="text-light-muted dark:text-dark-muted text-sm">15 {i18n.t('diagnostics.min')}</p>
                   <p className="text-3xl font-bold">{diagnostics.load_average[2].toFixed(2)}</p>
                 </div>
               </div>
@@ -173,28 +173,28 @@ export default function Diagnostics() {
         )}
 
         {activeTab === 'logs' && (
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
             <h2 className="text-lg font-semibold mb-4">{i18n.t('diagnostics.recentLogs')}</h2>
             <div className="space-y-3">
               {logs.length > 0 ? (
                 logs.map((log, idx) => (
-                  <div key={idx} className="border rounded p-4">
+                  <div key={idx} className="border border-light-border dark:border-dark-border border-light-border dark:border-dark-border rounded p-4">
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-3">
                         <span className={`px-2 py-1 rounded text-xs font-bold ${getLogColor(log.level)}`}>
                           {log.level}
                         </span>
-                        <span className="font-mono text-sm text-gray-600">{log.service}</span>
+                        <span className="font-mono text-sm text-light-muted dark:text-dark-muted">{log.service}</span>
                       </div>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-light-muted dark:text-dark-muted">
                         {new Date(log.timestamp).toLocaleString()}
                       </span>
                     </div>
-                    <p className="text-gray-800">{log.message}</p>
+                    <p className="text-light-text dark:text-dark-text">{log.message}</p>
                   </div>
                 ))
               ) : (
-                <p className="text-gray-500">{i18n.t('diagnostics.noRecentLogs')}</p>
+                <p className="text-light-muted dark:text-dark-muted">{i18n.t('diagnostics.noRecentLogs')}</p>
               )}
             </div>
           </div>
@@ -202,25 +202,25 @@ export default function Diagnostics() {
 
         {activeTab === 'performance' && (
           <div className="grid grid-cols-1 gap-4">
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
               <h2 className="text-lg font-semibold mb-4">{i18n.t('diagnostics.systemPerformance')}</h2>
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="font-medium">{i18n.t('diagnostics.cpuUsageTrend')}</span>
-                    <span className="text-sm text-gray-600">{i18n.t('diagnostics.last24h')}</span>
+                    <span className="text-sm text-light-muted dark:text-dark-muted">{i18n.t('diagnostics.last24h')}</span>
                   </div>
-                  <div className="h-32 bg-gray-100 rounded flex items-center justify-center">
-                    <p className="text-gray-500">Performance chart would render here</p>
+                  <div className="h-32 bg-light-surface dark:bg-dark-surface rounded flex items-center justify-center">
+                    <p className="text-light-muted dark:text-dark-muted">Performance chart would render here</p>
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="font-medium">{i18n.t('diagnostics.memoryUsageTrend')}</span>
-                    <span className="text-sm text-gray-600">{i18n.t('diagnostics.last24h')}</span>
+                    <span className="text-sm text-light-muted dark:text-dark-muted">{i18n.t('diagnostics.last24h')}</span>
                   </div>
-                  <div className="h-32 bg-gray-100 rounded flex items-center justify-center">
-                    <p className="text-gray-500">Performance chart would render here</p>
+                  <div className="h-32 bg-light-surface dark:bg-dark-surface rounded flex items-center justify-center">
+                    <p className="text-light-muted dark:text-dark-muted">Performance chart would render here</p>
                   </div>
                 </div>
               </div>

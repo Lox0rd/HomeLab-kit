@@ -75,16 +75,16 @@ export default function Storage() {
 
         <div className="grid grid-cols-1 gap-4">
           {devices.map((device) => (
-            <div key={device.device} className="bg-white rounded-lg shadow p-6">
+            <div key={device.device} className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h2 className="text-lg font-semibold">{device.device}</h2>
-                  <p className="text-sm text-gray-500">{device.mountpoint}</p>
+                  <p className="text-sm text-light-muted dark:text-dark-muted">{device.mountpoint}</p>
                 </div>
                 <span className="text-2xl font-bold">{device.percent.toFixed(1)}%</span>
               </div>
 
-              <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
+              <div className="w-full bg-light-border dark:bg-dark-border border-light-border dark:border-dark-border rounded-full h-3 mb-4">
                 <div
                   className={`h-3 rounded-full transition-all ${getStorageColor(device.percent)}`}
                   style={{ width: `${device.percent}%` }}
@@ -93,38 +93,38 @@ export default function Storage() {
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
-                  <p className="text-gray-600 font-medium">{i18n.t('storage.total')}</p>
-                  <p className="text-gray-900 font-semibold">{formatBytes(device.total)}</p>
+                  <p className="text-light-muted dark:text-dark-muted font-medium">{i18n.t('storage.total')}</p>
+                  <p className="text-light-text dark:text-dark-text font-semibold">{formatBytes(device.total)}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600 font-medium">{i18n.t('storage.used')}</p>
-                  <p className="text-gray-900 font-semibold">{formatBytes(device.used)}</p>
+                  <p className="text-light-muted dark:text-dark-muted font-medium">{i18n.t('storage.used')}</p>
+                  <p className="text-light-text dark:text-dark-text font-semibold">{formatBytes(device.used)}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600 font-medium">{i18n.t('storage.free')}</p>
-                  <p className="text-gray-900 font-semibold">{formatBytes(device.free)}</p>
+                  <p className="text-light-muted dark:text-dark-muted font-medium">{i18n.t('storage.free')}</p>
+                  <p className="text-light-text dark:text-dark-text font-semibold">{formatBytes(device.free)}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600 font-medium">{i18n.t('storage.type')}</p>
-                  <p className="text-gray-900 font-semibold">{device.fstype}</p>
+                  <p className="text-light-muted dark:text-dark-muted font-medium">{i18n.t('storage.type')}</p>
+                  <p className="text-light-text dark:text-dark-text font-semibold">{device.fstype}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4">{i18n.t('storage.storageOverview')}</h2>
           <div className="space-y-4">
             {devices.map((device) => (
-              <div key={device.device} className="flex items-center justify-between p-4 border rounded">
+              <div key={device.device} className="flex items-center justify-between p-4 border border-light-border dark:border-dark-border rounded">
                 <div>
                   <p className="font-semibold">{device.device}</p>
-                  <p className="text-sm text-gray-500">{device.mountpoint}</p>
+                  <p className="text-sm text-light-muted dark:text-dark-muted">{device.mountpoint}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-semibold">{formatBytes(device.used)} / {formatBytes(device.total)}</p>
-                  <p className={`text-sm ${device.percent > 80 ? 'text-red-600' : 'text-gray-600'}`}>
+                  <p className={`text-sm ${device.percent > 80 ? 'text-red-600' : 'text-light-muted dark:text-dark-muted'}`}>
                     {device.percent.toFixed(1)}% {i18n.t('storage.used')}
                   </p>
                 </div>

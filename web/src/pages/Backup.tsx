@@ -103,7 +103,7 @@ export default function Backup() {
           <h1 className="text-3xl font-bold">{i18n.t('backup.title')}</h1>
           <button
             onClick={() => setShowNewBackup(!showNewBackup)}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-semibold"
+            className="px-4 py-2 bg-accent-primary text-white rounded hover:bg-accent-secondary font-semibold"
           >
             {i18n.t('backup.newBackupJob')}
           </button>
@@ -112,27 +112,27 @@ export default function Backup() {
         {error && <div className="bg-red-100 border border-red-400 text-red-700 p-4 rounded">{error}</div>}
 
         {showNewBackup && (
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-4">{i18n.t('backup.createNewBackupJob')}</h2>
             <form className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-1">{i18n.t('backup.jobName')}</label>
-                <input type="text" className="w-full border rounded px-3 py-2" placeholder="e.g., Custom Backup" />
+                <input type="text" className="w-full border border-light-border dark:border-dark-border rounded px-3 py-2" placeholder="e.g., Custom Backup" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">{i18n.t('backup.source')}</label>
-                  <input type="text" className="w-full border rounded px-3 py-2" placeholder="/path/to/backup" />
+                  <input type="text" className="w-full border border-light-border dark:border-dark-border rounded px-3 py-2" placeholder="/path/to/backup" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1">{i18n.t('backup.destination')}</label>
-                  <input type="text" className="w-full border rounded px-3 py-2" placeholder="/mnt/backups" />
+                  <input type="text" className="w-full border border-light-border dark:border-dark-border rounded px-3 py-2" placeholder="/mnt/backups" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">{i18n.t('backup.schedule')}</label>
-                  <select className="w-full border rounded px-3 py-2">
+                  <select className="w-full border border-light-border dark:border-dark-border rounded px-3 py-2">
                     <option>{i18n.t('backup.daily')}</option>
                     <option>{i18n.t('backup.weekly')}</option>
                     <option>{i18n.t('backup.monthly')}</option>
@@ -140,7 +140,7 @@ export default function Backup() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1">{i18n.t('backup.retention')}</label>
-                  <input type="number" className="w-full border rounded px-3 py-2" placeholder="30" defaultValue="30" />
+                  <input type="number" className="w-full border border-light-border dark:border-dark-border rounded px-3 py-2" placeholder="30" defaultValue="30" />
                 </div>
               </div>
               <div className="flex gap-3">
@@ -157,14 +157,14 @@ export default function Backup() {
 
         <div className="grid grid-cols-1 gap-4">
           {backups.map((backup) => (
-            <div key={backup.id} className="bg-white rounded-lg shadow p-6">
+            <div key={backup.id} className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h2 className="text-lg font-semibold">{backup.name}</h2>
-                  <p className="text-sm text-gray-500">{backup.source} → {backup.destination}</p>
+                  <p className="text-sm text-light-muted dark:text-dark-muted">{backup.source} → {backup.destination}</p>
                 </div>
                 <span className={`px-3 py-1 rounded text-sm font-medium ${
-                  backup.last_status === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  backup.last_status === 'success' ? 'bg-status-success/10 text-status-success' : 'bg-red-100 text-red-800'
                 }`}>
                   {backup.last_status}
                 </span>
@@ -172,26 +172,26 @@ export default function Backup() {
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
                 <div>
-                  <p className="text-gray-600">{i18n.t('backup.schedule')}</p>
+                  <p className="text-light-muted dark:text-dark-muted">{i18n.t('backup.schedule')}</p>
                   <p className="font-semibold capitalize">{backup.schedule}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600">{i18n.t('backup.lastRun')}</p>
+                  <p className="text-light-muted dark:text-dark-muted">{i18n.t('backup.lastRun')}</p>
                   <p className="font-semibold">{new Date(backup.last_run).toLocaleDateString()}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600">{i18n.t('storage.total')}</p>
+                  <p className="text-light-muted dark:text-dark-muted">{i18n.t('storage.total')}</p>
                   <p className="font-semibold">{formatBytes(backup.size)}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600">{i18n.t('backup.retention')}</p>
+                  <p className="text-light-muted dark:text-dark-muted">{i18n.t('backup.retention')}</p>
                   <p className="font-semibold">{backup.retention_days} {i18n.t('diagnostics.min')}</p>
                 </div>
               </div>
 
               <button
                 onClick={() => handleRunBackup(backup.id)}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-semibold"
+                className="px-4 py-2 bg-accent-primary text-white rounded hover:bg-accent-secondary text-sm font-semibold"
               >
                 {i18n.t('backup.runNow')}
               </button>

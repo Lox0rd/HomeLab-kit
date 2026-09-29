@@ -1,8 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
+import { Sun, Moon } from 'lucide-react'
 import { i18n } from '../i18n'
+import { useTheme } from '../store/themeContext'
 
 export function Navigation() {
   const location = useLocation()
+  const { theme, toggleTheme } = useTheme()
 
   const isActive = (path: string) => location.pathname === path
 
@@ -13,7 +16,7 @@ export function Navigation() {
   }
 
   const navItems = [
-    { path: '/', labelKey: 'navigation.dashboard', icon: '📊' },
+    { path: '/dashboard', labelKey: 'navigation.dashboard', icon: '📊' },
     { path: '/labs', labelKey: 'navigation.labs', icon: '📚' },
     { path: '/metrics', labelKey: 'navigation.metrics', icon: '📈' },
     { path: '/docker', labelKey: 'navigation.docker', icon: '🐳' },
@@ -27,10 +30,10 @@ export function Navigation() {
   ]
 
   return (
-    <nav className="bg-gray-900 text-white shadow-lg sticky top-0 z-50">
-      <div className="px-4 py-2">
+    <nav className="bg-light-bg dark:bg-dark-bg text-light-text dark:text-white shadow-lg sticky top-0 z-50 border-b border-light-border dark:border-dark-border backdrop-blur-xs">
+      <div className="px-4 py-3">
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <Link to="/" className="text-2xl font-bold text-blue-400 flex-shrink-0">
+          <Link to="/dashboard" className="text-2xl font-bold text-accent-primary flex-shrink-0 hover:opacity-80 transition-opacity">
             HOMELAB
           </Link>
           <div className="flex gap-1 overflow-x-auto flex-wrap justify-center flex-1 min-w-0">
@@ -38,10 +41,10 @@ export function Navigation() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-2 py-1 rounded flex items-center gap-1 whitespace-nowrap text-xs sm:text-sm flex-shrink-0 ${
+                className={`px-3 py-2 rounded-lg flex items-center gap-2 whitespace-nowrap text-xs sm:text-sm flex-shrink-0 transition-all duration-200 ${
                   isActive(item.path)
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-300 hover:bg-gray-800'
+                    ? 'bg-accent-primary text-white shadow-lg'
+                    : 'text-light-muted dark:text-dark-muted hover:bg-light-surface dark:hover:bg-dark-surface hover:text-light-text dark:hover:text-dark-text'
                 }`}
               >
                 <span>{item.icon}</span>
@@ -49,14 +52,24 @@ export function Navigation() {
               </Link>
             ))}
           </div>
-          <button
-            onClick={toggleLanguage}
-            className="px-2 py-1 rounded bg-blue-600 hover:bg-blue-700 text-xs sm:text-sm font-semibold flex items-center gap-1 flex-shrink-0"
-          >
-            {i18n.getLanguage() === 'en' ? '🇷🇺 РУ' : '🇬🇧 EN'}
-          </button>
+          <div className="flex gap-2 flex-shrink-0">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-light-surface dark:bg-dark-surface hover:bg-light-border dark:hover:bg-dark-border text-light-text dark:text-dark-text transition-all duration-200"
+              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button
+              onClick={toggleLanguage}
+              className="px-3 py-2 rounded-lg bg-accent-primary hover:bg-accent-secondary text-white text-xs sm:text-sm font-semibold transition-all duration-200"
+            >
+              {i18n.getLanguage() === 'en' ? '🇷🇺 РУ' : '🇬🇧 EN'}
+            </button>
+          </div>
         </div>
       </div>
     </nav>
   )
 }
+

@@ -111,7 +111,7 @@ export default function Docker() {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 font-semibold capitalize ${
-              activeTab === tab ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-600'
+              activeTab === tab ? 'border-b-2 border-blue-600 text-blue-600' : 'text-light-muted dark:text-dark-muted'
             }`}
           >
             {i18n.t(`docker.${tab}` as any)} ({tab === 'containers' ? containers.length : tab === 'images' ? images.length : tab === 'networks' ? networks.length : volumes.length})
@@ -120,9 +120,9 @@ export default function Docker() {
       </div>
 
       {activeTab === 'containers' && (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-100">
+            <thead className="bg-light-surface dark:bg-dark-surface">
               <tr>
                 <th className="px-4 py-2 text-left">{i18n.t('docker.id')}</th>
                 <th className="px-4 py-2 text-left">{i18n.t('docker.name')}</th>
@@ -133,7 +133,7 @@ export default function Docker() {
             </thead>
             <tbody>
               {containers.map((c: Container) => (
-                <tr key={c.id} className="border-t hover:bg-gray-50">
+                <tr key={c.id} className="border-t hover:bg-light-surface dark:bg-dark-surface">
                   <td className="px-4 py-2 font-mono text-sm">{c.id}</td>
                   <td className="px-4 py-2">{c.name}</td>
                   <td className="px-4 py-2 text-sm">{c.image}</td>
@@ -141,7 +141,7 @@ export default function Docker() {
                   <td className="px-4 py-2">
                     <span
                       className={`px-2 py-1 rounded text-sm ${
-                        c.state === 'running' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        c.state === 'running' ? 'bg-status-success/10 text-status-success' : 'bg-red-100 text-red-800'
                       }`}
                     >
                       {c.state}
@@ -151,14 +151,14 @@ export default function Docker() {
               ))}
             </tbody>
           </table>
-          {containers.length === 0 && <div className="p-4 text-gray-600">{i18n.t('docker.noContainers')}</div>}
+          {containers.length === 0 && <div className="p-4 text-light-muted dark:text-dark-muted">{i18n.t('docker.noContainers')}</div>}
         </div>
       )}
 
       {activeTab === 'images' && (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-100">
+            <thead className="bg-light-surface dark:bg-dark-surface">
               <tr>
                 <th className="px-4 py-2 text-left">{i18n.t('docker.id')}</th>
                 <th className="px-4 py-2 text-left">{i18n.t('docker.tags')}</th>
@@ -168,7 +168,7 @@ export default function Docker() {
             </thead>
             <tbody>
               {images.map((img: DockerImage) => (
-                <tr key={img.id} className="border-t hover:bg-gray-50">
+                <tr key={img.id} className="border-t hover:bg-light-surface dark:bg-dark-surface">
                   <td className="px-4 py-2 font-mono text-sm">{img.id}</td>
                   <td className="px-4 py-2">{img.tags.join(', ')}</td>
                   <td className="px-4 py-2">{formatBytes(img.size)}</td>
@@ -177,14 +177,14 @@ export default function Docker() {
               ))}
             </tbody>
           </table>
-          {images.length === 0 && <div className="p-4 text-gray-600">{i18n.t('docker.noImages')}</div>}
+          {images.length === 0 && <div className="p-4 text-light-muted dark:text-dark-muted">{i18n.t('docker.noImages')}</div>}
         </div>
       )}
 
       {activeTab === 'networks' && (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-100">
+            <thead className="bg-light-surface dark:bg-dark-surface">
               <tr>
                 <th className="px-4 py-2 text-left">{i18n.t('docker.name')}</th>
                 <th className="px-4 py-2 text-left">{i18n.t('docker.driver')}</th>
@@ -194,7 +194,7 @@ export default function Docker() {
             </thead>
             <tbody>
               {networks.map((net: DockerNetwork) => (
-                <tr key={net.id} className="border-t hover:bg-gray-50">
+                <tr key={net.id} className="border-t hover:bg-light-surface dark:bg-dark-surface">
                   <td className="px-4 py-2">{net.name}</td>
                   <td className="px-4 py-2">{net.driver}</td>
                   <td className="px-4 py-2">{net.scope}</td>
@@ -203,14 +203,14 @@ export default function Docker() {
               ))}
             </tbody>
           </table>
-          {networks.length === 0 && <div className="p-4 text-gray-600">{i18n.t('docker.noNetworks')}</div>}
+          {networks.length === 0 && <div className="p-4 text-light-muted dark:text-dark-muted">{i18n.t('docker.noNetworks')}</div>}
         </div>
       )}
 
       {activeTab === 'volumes' && (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-100">
+            <thead className="bg-light-surface dark:bg-dark-surface">
               <tr>
                 <th className="px-4 py-2 text-left">{i18n.t('docker.name')}</th>
                 <th className="px-4 py-2 text-left">{i18n.t('docker.driver')}</th>
@@ -219,7 +219,7 @@ export default function Docker() {
             </thead>
             <tbody>
               {volumes.map((vol: DockerVolume) => (
-                <tr key={vol.name} className="border-t hover:bg-gray-50">
+                <tr key={vol.name} className="border-t hover:bg-light-surface dark:bg-dark-surface">
                   <td className="px-4 py-2">{vol.name}</td>
                   <td className="px-4 py-2">{vol.driver}</td>
                   <td className="px-4 py-2 text-sm font-mono">{vol.mountpoint}</td>
@@ -227,7 +227,7 @@ export default function Docker() {
               ))}
             </tbody>
           </table>
-          {volumes.length === 0 && <div className="p-4 text-gray-600">{i18n.t('docker.noVolumes')}</div>}
+          {volumes.length === 0 && <div className="p-4 text-light-muted dark:text-dark-muted">{i18n.t('docker.noVolumes')}</div>}
         </div>
       )}
     </div>

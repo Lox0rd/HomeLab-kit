@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API_BASE_URL = import.meta.env.MODE === 'production'
-  ? 'https://homelab.local/api/v1'
+  ? `${window.location.protocol}//${window.location.hostname}:${window.location.port || (window.location.protocol === 'https:' ? 443 : 80)}/api/v1`
   : 'http://localhost:8000/api/v1'
 
 const client = axios.create({

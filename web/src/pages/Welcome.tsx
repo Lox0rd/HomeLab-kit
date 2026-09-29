@@ -33,39 +33,39 @@ export function Welcome() {
           <p className="text-blue-100">{i18n.t('welcome.subtitle')}</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl p-12 mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">{i18n.t('welcome.features')}</h2>
+        <div className="bg-light-surface dark:bg-dark-surface rounded-2xl shadow-2xl p-12 mb-8">
+          <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">{i18n.t('welcome.features')}</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="flex items-start">
               <div className="text-3xl mr-4">📚</div>
               <div>
-                <h3 className="font-semibold text-gray-800 mb-1">{i18n.t('welcome.feature1Title')}</h3>
-                <p className="text-gray-600 text-sm">{i18n.t('welcome.feature1Desc')}</p>
+                <h3 className="font-semibold text-light-text dark:text-dark-text mb-1">{i18n.t('welcome.feature1Title')}</h3>
+                <p className="text-light-muted dark:text-dark-muted text-sm">{i18n.t('welcome.feature1Desc')}</p>
               </div>
             </div>
 
             <div className="flex items-start">
               <div className="text-3xl mr-4">📊</div>
               <div>
-                <h3 className="font-semibold text-gray-800 mb-1">{i18n.t('welcome.feature2Title')}</h3>
-                <p className="text-gray-600 text-sm">{i18n.t('welcome.feature2Desc')}</p>
+                <h3 className="font-semibold text-light-text dark:text-dark-text mb-1">{i18n.t('welcome.feature2Title')}</h3>
+                <p className="text-light-muted dark:text-dark-muted text-sm">{i18n.t('welcome.feature2Desc')}</p>
               </div>
             </div>
 
             <div className="flex items-start">
               <div className="text-3xl mr-4">🐳</div>
               <div>
-                <h3 className="font-semibold text-gray-800 mb-1">{i18n.t('welcome.feature3Title')}</h3>
-                <p className="text-gray-600 text-sm">{i18n.t('welcome.feature3Desc')}</p>
+                <h3 className="font-semibold text-light-text dark:text-dark-text mb-1">{i18n.t('welcome.feature3Title')}</h3>
+                <p className="text-light-muted dark:text-dark-muted text-sm">{i18n.t('welcome.feature3Desc')}</p>
               </div>
             </div>
 
             <div className="flex items-start">
               <div className="text-3xl mr-4">🔒</div>
               <div>
-                <h3 className="font-semibold text-gray-800 mb-1">{i18n.t('welcome.feature4Title')}</h3>
-                <p className="text-gray-600 text-sm">{i18n.t('welcome.feature4Desc')}</p>
+                <h3 className="font-semibold text-light-text dark:text-dark-text mb-1">{i18n.t('welcome.feature4Title')}</h3>
+                <p className="text-light-muted dark:text-dark-muted text-sm">{i18n.t('welcome.feature4Desc')}</p>
               </div>
             </div>
           </div>

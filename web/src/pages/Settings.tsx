@@ -110,7 +110,7 @@ export default function Settings() {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow p-4">
+            <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-4">
               <nav className="space-y-2">
                 {groups.map((group) => (
                   <button
@@ -118,8 +118,8 @@ export default function Settings() {
                     onClick={() => setActiveTab(group.name)}
                     className={`w-full text-left px-4 py-2 rounded capitalize ${
                       activeTab === group.name
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-700 hover:bg-gray-100'
+                        ? 'bg-accent-primary text-white'
+                        : 'text-light-muted dark:text-dark-muted hover:bg-light-surface dark:bg-dark-surface'
                     }`}
                   >
                     {group.name}
@@ -132,10 +132,10 @@ export default function Settings() {
           <div className="lg:col-span-3">
             {groups.map((group) => (
               activeTab === group.name && (
-                <div key={group.name} className="bg-white rounded-lg shadow p-6 space-y-6">
+                <div key={group.name} className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6 space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold">{i18n.t(`settings.${group.name}.title` as any)}</h2>
-                    <p className="text-gray-600 text-sm">{i18n.t(`settings.${group.name}.description` as any)}</p>
+                    <p className="text-light-muted dark:text-dark-muted text-sm">{i18n.t(`settings.${group.name}.description` as any)}</p>
                   </div>
 
                   <div className="space-y-4">
@@ -144,8 +144,8 @@ export default function Settings() {
                       const value = changes[key] !== undefined ? changes[key] : setting.value
 
                       return (
-                        <div key={setting.key} className="border rounded p-4">
-                          <label className="block font-medium text-gray-800 mb-2">
+                        <div key={setting.key} className="border border-light-border dark:border-dark-border border-light-border dark:border-dark-border rounded p-4">
+                          <label className="block font-medium text-light-text dark:text-dark-text mb-2">
                             {setting.label}
                           </label>
 
@@ -154,7 +154,7 @@ export default function Settings() {
                               type="text"
                               value={value as string}
                               onChange={(e) => handleSettingChange(group.name, setting.key, e.target.value)}
-                              className="w-full border rounded px-3 py-2 text-gray-800"
+                              className="w-full border border-light-border dark:border-dark-border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-surface dark:bg-dark-surface"
                             />
                           )}
 
@@ -163,7 +163,7 @@ export default function Settings() {
                               type="number"
                               value={value as number}
                               onChange={(e) => handleSettingChange(group.name, setting.key, parseInt(e.target.value))}
-                              className="w-full border rounded px-3 py-2 text-gray-800"
+                              className="w-full border border-light-border dark:border-dark-border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-surface dark:bg-dark-surface"
                             />
                           )}
 
@@ -175,7 +175,7 @@ export default function Settings() {
                                 onChange={(e) => handleSettingChange(group.name, setting.key, e.target.checked)}
                                 className="w-5 h-5"
                               />
-                              <span className="text-gray-700">{value ? i18n.t('settings.enabled') : i18n.t('settings.disabled')}</span>
+                              <span className="text-light-muted dark:text-dark-muted">{value ? i18n.t('settings.enabled') : i18n.t('settings.disabled')}</span>
                             </label>
                           )}
 
@@ -183,7 +183,7 @@ export default function Settings() {
                             <select
                               value={value as string}
                               onChange={(e) => handleSettingChange(group.name, setting.key, e.target.value)}
-                              className="w-full border rounded px-3 py-2 text-gray-800"
+                              className="w-full border border-light-border dark:border-dark-border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-surface dark:bg-dark-surface"
                             >
                               {setting.options?.map((opt) => (
                                 <option key={opt} value={opt}>
@@ -201,7 +201,7 @@ export default function Settings() {
                     <button
                       onClick={handleSaveSettings}
                       disabled={Object.keys(changes).length === 0}
-                      className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400 font-semibold"
+                      className="px-6 py-2 bg-accent-primary text-white rounded hover:bg-accent-secondary disabled:bg-gray-400 font-semibold"
                     >
                       {i18n.t('settings.saveChanges')}
                     </button>

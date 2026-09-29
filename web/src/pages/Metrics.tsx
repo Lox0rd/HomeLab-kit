@@ -72,24 +72,24 @@ export default function Metrics() {
         <h1 className="text-3xl font-bold">{i18n.t('metrics.title')}</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-4">{i18n.t('metrics.cpu')}</h2>
             <div className="text-4xl font-bold text-blue-600">{metrics.cpu_percent.toFixed(1)}%</div>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-4">
+            <div className="w-full bg-light-border dark:bg-dark-border border-light-border dark:border-dark-border rounded-full h-2 mt-4">
               <div
-                className="bg-blue-600 h-2 rounded-full"
+                className="bg-accent-primary h-2 rounded-full"
                 style={{ width: `${metrics.cpu_percent}%` }}
               />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-4">{i18n.t('metrics.memory')}</h2>
             <div className="text-4xl font-bold text-green-600">{metrics.memory.percent.toFixed(1)}%</div>
-            <div className="text-sm text-gray-600 mt-2">
+            <div className="text-sm text-light-muted dark:text-dark-muted mt-2">
               {formatBytes(metrics.memory.used)} / {formatBytes(metrics.memory.total)}
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-4">
+            <div className="w-full bg-light-border dark:bg-dark-border border-light-border dark:border-dark-border rounded-full h-2 mt-4">
               <div
                 className="bg-green-600 h-2 rounded-full"
                 style={{ width: `${metrics.memory.percent}%` }}
@@ -97,13 +97,13 @@ export default function Metrics() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-4">{i18n.t('metrics.disk')}</h2>
             <div className="text-4xl font-bold text-orange-600">{metrics.disk.percent.toFixed(1)}%</div>
-            <div className="text-sm text-gray-600 mt-2">
+            <div className="text-sm text-light-muted dark:text-dark-muted mt-2">
               {formatBytes(metrics.disk.used)} / {formatBytes(metrics.disk.total)}
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-4">
+            <div className="w-full bg-light-border dark:bg-dark-border border-light-border dark:border-dark-border rounded-full h-2 mt-4">
               <div
                 className="bg-orange-600 h-2 rounded-full"
                 style={{ width: `${metrics.disk.percent}%` }}
@@ -111,7 +111,7 @@ export default function Metrics() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-4">{i18n.t('metrics.systemInfo')}</h2>
             <div className="space-y-2 text-sm">
               <div><span className="font-semibold">{i18n.t('metrics.hostname')}:</span> {metrics.system_info.hostname}</div>
@@ -121,13 +121,13 @@ export default function Metrics() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4">{i18n.t('metrics.networkInterfaces')}</h2>
           <div className="space-y-2">
             {Object.entries(metrics.network).map(([iface, data]: [string, any]) => (
-              <div key={iface} className="flex justify-between items-center p-2 bg-gray-50 rounded">
+              <div key={iface} className="flex justify-between items-center p-2 bg-light-surface dark:bg-dark-surface rounded">
                 <span className="font-mono">{iface}</span>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-light-muted dark:text-dark-muted">
                   {data.ip_addresses.join(', ') || i18n.t('metrics.noIp')}
                 </span>
               </div>

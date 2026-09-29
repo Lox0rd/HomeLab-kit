@@ -1,3 +1,3 @@
-from . import health, labs, auth, system, docker, services
+from . import health, labs, auth, system, docker, services, settings
 
-__all__ = ["health", "labs", "auth", "system", "docker", "services"]
+__all__ = ["health", "labs", "auth", "system", "docker", "services", "settings"]

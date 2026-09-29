@@ -79,40 +79,40 @@ export default function Security() {
 
         {security && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
               <h2 className="text-lg font-semibold mb-4">{i18n.t('security.systemSecurity')}</h2>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 border rounded">
+                <div className="flex items-center justify-between p-3 border border-light-border dark:border-dark-border rounded">
                   <span className="font-medium">{i18n.t('security.sshService')}</span>
                   <span className={`px-3 py-1 rounded text-sm ${
-                    security.ssh_enabled ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    security.ssh_enabled ? 'bg-status-success/10 text-status-success' : 'bg-red-100 text-red-800'
                   }`}>
                     {security.ssh_enabled ? i18n.t('security.enabled') : i18n.t('security.disabled')}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between p-3 border rounded">
+                <div className="flex items-center justify-between p-3 border border-light-border dark:border-dark-border rounded">
                   <span className="font-medium">{i18n.t('security.firewall')}</span>
                   <span className={`px-3 py-1 rounded text-sm ${
-                    security.firewall_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    security.firewall_active ? 'bg-status-success/10 text-status-success' : 'bg-red-100 text-red-800'
                   }`}>
                     {security.firewall_active ? i18n.t('security.active') : i18n.t('security.inactive')}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between p-3 border rounded">
+                <div className="flex items-center justify-between p-3 border border-light-border dark:border-dark-border rounded">
                   <span className="font-medium">{i18n.t('security.fail2ban')}</span>
                   <span className={`px-3 py-1 rounded text-sm ${
-                    security.fail2ban_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    security.fail2ban_active ? 'bg-status-success/10 text-status-success' : 'bg-light-surface dark:bg-dark-surface text-light-text dark:text-dark-text'
                   }`}>
                     {security.fail2ban_active ? i18n.t('security.active') : i18n.t('security.inactive')}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between p-3 border rounded">
+                <div className="flex items-center justify-between p-3 border border-light-border dark:border-dark-border rounded">
                   <span className="font-medium">{i18n.t('security.selinux')}</span>
                   <span className={`px-3 py-1 rounded text-sm font-mono ${
-                    security.selinux_status === 'enforcing' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    security.selinux_status === 'enforcing' ? 'bg-status-success/10 text-status-success' : 'bg-light-surface dark:bg-dark-surface text-light-text dark:text-dark-text'
                   }`}>
                     {security.selinux_status}
                   </span>
@@ -120,29 +120,29 @@ export default function Security() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
               <h2 className="text-lg font-semibold mb-4">{i18n.t('security.openPorts')}</h2>
               <div className="space-y-2">
                 {security.open_ports.length > 0 ? (
                   security.open_ports.map((port) => (
-                    <div key={port} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                      <span className="font-mono">{port}</span>
-                      <span className="text-sm text-gray-600">tcp</span>
+                    <div key={port} className="flex items-center justify-between p-3 bg-light-border dark:bg-dark-border rounded">
+                      <span className="font-mono text-light-text dark:text-dark-text">{port}</span>
+                      <span className="text-sm text-light-muted dark:text-dark-muted">tcp</span>
                     </div>
                   ))
                 ) : (
-                  <p className="text-gray-500">{i18n.t('security.noOpenPorts')}</p>
+                  <p className="text-light-muted dark:text-dark-muted">{i18n.t('security.noOpenPorts')}</p>
                 )}
               </div>
             </div>
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4">{i18n.t('security.firewallRules')}</h2>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-100">
+              <thead className="bg-light-surface dark:bg-dark-surface">
                 <tr>
                   <th className="px-4 py-2 text-left">{i18n.t('security.port')}</th>
                   <th className="px-4 py-2 text-left">{i18n.t('security.protocol')}</th>
@@ -152,12 +152,12 @@ export default function Security() {
               </thead>
               <tbody>
                 {rules.map((rule, idx) => (
-                  <tr key={idx} className="border-t hover:bg-gray-50">
+                  <tr key={idx} className="border-t hover:bg-light-surface dark:bg-dark-surface">
                     <td className="px-4 py-2 font-mono">{rule.port}</td>
                     <td className="px-4 py-2 uppercase text-sm">{rule.protocol}</td>
                     <td className="px-4 py-2">
                       <span className={`px-2 py-1 rounded text-sm ${
-                        rule.action === 'ACCEPT' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        rule.action === 'ACCEPT' ? 'bg-status-success/10 text-status-success' : 'bg-red-100 text-red-800'
                       }`}>
                         {rule.action}
                       </span>

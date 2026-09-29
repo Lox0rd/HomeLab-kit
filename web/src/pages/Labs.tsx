@@ -150,7 +150,7 @@ export function Labs() {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'beginner':
-        return 'bg-green-100 text-green-800'
+        return 'bg-status-success/10 text-status-success'
       case 'intermediate':
         return 'bg-yellow-100 text-yellow-800'
       case 'advanced':
@@ -158,7 +158,7 @@ export function Labs() {
       case 'expert':
         return 'bg-red-100 text-red-800'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-light-surface dark:bg-dark-surface text-light-text dark:text-dark-text'
     }
   }
 
@@ -197,7 +197,7 @@ export function Labs() {
           <div className="lg:col-span-2">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-bold">{i18n.t('labs.availableLabs')} ({labs.length})</h2>
-              <span className="text-sm text-gray-600">{progress.completed.length}/{labs.length} {i18n.t('labs.completed')}</span>
+              <span className="text-sm text-light-muted dark:text-dark-muted">{progress.completed.length}/{labs.length} {i18n.t('labs.completed')}</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
               {labs.map((lab) => {
@@ -207,12 +207,12 @@ export function Labs() {
                   <div
                     key={lab.id}
                     onClick={() => unlocked && handleSelectLab(lab)}
-                    className={`bg-white rounded-lg shadow p-4 transition ${
+                    className={`bg-light-surface dark:bg-dark-surface rounded-lg shadow p-4 transition ${
                       unlocked ? 'hover:shadow-lg cursor-pointer' : 'opacity-50 cursor-not-allowed'
                     } ${selectedLab?.id === lab.id ? 'ring-2 ring-blue-600' : ''}`}
                   >
                     <div className="flex items-start justify-between mb-2">
-                      <div className="text-sm text-gray-500 font-mono">{lab.id}</div>
+                      <div className="text-sm text-light-muted dark:text-dark-muted font-mono">{lab.id}</div>
                       {completed && <span className="text-xl">✓</span>}
                       {!unlocked && <span className="text-xl">🔒</span>}
                     </div>
@@ -221,7 +221,7 @@ export function Labs() {
                       <span className={`px-2 py-1 rounded text-xs font-semibold capitalize ${getDifficultyColor(lab.difficulty)}`}>
                         {i18n.t(`labs.${lab.difficulty}` as any, lab.difficulty)}
                       </span>
-                      <span className="text-sm text-gray-600">{lab.estimated_time} {i18n.t('labs.minutes')}</span>
+                      <span className="text-sm text-light-muted dark:text-dark-muted">{lab.estimated_time} {i18n.t('labs.minutes')}</span>
                     </div>
                   </div>
                 )
@@ -231,10 +231,10 @@ export function Labs() {
 
           <div>
             {selectedLab && labDetails ? (
-              <div className="bg-white rounded-lg shadow p-6 space-y-4">
+              <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6 space-y-4">
                 <div>
                   <h2 className="text-2xl font-bold mb-2">{selectedLab.title}</h2>
-                  <p className="text-gray-600 text-sm">{labDetails.description}</p>
+                  <p className="text-light-muted dark:text-dark-muted text-sm">{labDetails.description}</p>
                 </div>
 
                 <div className="bg-blue-50 border border-blue-200 rounded p-3">
@@ -245,7 +245,7 @@ export function Labs() {
                 {result && (
                   <div className={`p-3 rounded border-l-4 ${
                     result.passed
-                      ? 'bg-green-50 border-green-500 text-green-800'
+                      ? 'bg-green-50 border-green-500 text-status-success'
                       : 'bg-red-50 border-red-500 text-red-800'
                   }`}>
                     <div className="font-semibold text-sm">{result.passed ? '✓ ' + i18n.t('labs.passed') : '✗ ' + i18n.t('labs.failed')}</div>
@@ -292,19 +292,19 @@ export function Labs() {
                 )}
 
                 <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="bg-gray-50 p-2 rounded">
-                    <div className="text-gray-600">{i18n.t('labs.difficulty')}</div>
+                  <div className="bg-light-surface dark:bg-dark-surface p-2 rounded">
+                    <div className="text-light-muted dark:text-dark-muted">{i18n.t('labs.difficulty')}</div>
                     <div className="font-semibold capitalize">{i18n.t(`labs.${selectedLab.difficulty}` as any, selectedLab.difficulty)}</div>
                   </div>
-                  <div className="bg-gray-50 p-2 rounded">
-                    <div className="text-gray-600">{i18n.t('labs.estimatedTime')}</div>
+                  <div className="bg-light-surface dark:bg-dark-surface p-2 rounded">
+                    <div className="text-light-muted dark:text-dark-muted">{i18n.t('labs.estimatedTime')}</div>
                     <div className="font-semibold">{selectedLab.estimated_time} {i18n.t('labs.minutes')}</div>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow p-6">
-                <p className="text-gray-600">{i18n.t('labs.selectLab')}</p>
+              <div className="bg-light-surface dark:bg-dark-surface rounded-lg shadow p-6">
+                <p className="text-light-muted dark:text-dark-muted">{i18n.t('labs.selectLab')}</p>
               </div>
             )}
           </div>
