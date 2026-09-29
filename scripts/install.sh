@@ -76,14 +76,16 @@ else
     echo -e "${YELLOW}✓ homelab user already exists${NC}"
 fi
 
-# Generate admin password
+# Setup admin credentials
 echo ""
-echo "Generating admin password..."
-ADMIN_PASSWORD=$(openssl rand -base64 12)
+echo "Setting up admin credentials..."
+ADMIN_USERNAME="admin"
+ADMIN_PASSWORD="admin"
 mkdir -p /root/.homelab
-echo "$ADMIN_PASSWORD" > /root/.homelab/admin_password.txt
-chmod 600 /root/.homelab/admin_password.txt
-echo -e "${GREEN}✓ Admin password saved to /root/.homelab/admin_password.txt${NC}"
+echo "Username: $ADMIN_USERNAME" > /root/.homelab/admin_credentials.txt
+echo "Password: $ADMIN_PASSWORD" >> /root/.homelab/admin_credentials.txt
+chmod 600 /root/.homelab/admin_credentials.txt
+echo -e "${GREEN}✓ Admin credentials: username='admin', password='admin'${NC}"
 
 # Setup Agent
 echo ""
@@ -233,11 +235,9 @@ db = SessionLocal()
 # Check if admin already exists
 admin = db.query(User).filter(User.username == "admin").first()
 if not admin:
-    # Truncate password to 72 bytes for bcrypt
-    admin_password = "$ADMIN_PASSWORD"[:72]
     admin_user = User(
         username="admin",
-        hashed_password=hash_password(admin_password),
+        hashed_password=hash_password("admin"),
         is_admin=True
     )
     db.add(admin_user)
@@ -287,9 +287,9 @@ echo -e "${GREEN}  https://homelab.local${NC}"
 echo ""
 echo "Login credentials:"
 echo "  Username: admin"
-echo "  Password: $ADMIN_PASSWORD"
+echo "  Password: admin"
 echo ""
-echo "Password saved to: /root/.homelab/admin_password.txt"
+echo "Credentials saved to: /root/.homelab/admin_credentials.txt"
 echo ""
 echo "Services:"
 echo "  - Homelab Agent: systemctl status homelab-agent"
