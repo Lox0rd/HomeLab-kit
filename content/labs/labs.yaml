@@ -1,0 +1,603 @@
+labs:
+  - id: "LAB-01"
+    title: "Мой первый сервер"
+    difficulty: "beginner"
+    estimated_time: 15
+    prerequisites: []
+    tasks:
+      - id: "vm-running"
+        type: "custom_message"
+        description: "Убедитесь, что VM запущена"
+      - id: "ubuntu-verify"
+        type: "file_exists"
+        path: "/etc/os-release"
+    theory: |
+      # Мой первый сервер
+
+      Сервер — это компьютер, который предоставляет услуги другим устройствам.
+      Это не обязательно огромная машина — это может быть мини-ПК в твоей квартире.
+    hints:
+      - "Проверьте, что VM запущена и загружена"
+      - "Откройте терминал и введите: cat /etc/os-release"
+    solution: "Просто убедитесь, что система загрузилась"
+
+  - id: "LAB-02"
+    title: "Первый SSH"
+    difficulty: "beginner"
+    estimated_time: 20
+    prerequisites: ["LAB-01"]
+    tasks:
+      - id: "ssh-service"
+        type: "service_running"
+        service: "ssh"
+      - id: "ssh-port"
+        type: "port_open"
+        port: 22
+    theory: |
+      # Первый SSH
+
+      SSH — это безопасный способ подключиться к серверу удалённо.
+      Вместо того чтобы сидеть перед сервером, ты подключаешься через сеть.
+    hints:
+      - "SSH должен работать по умолчанию"
+      - "Попробуйте: ssh localhost"
+    solution: "Сервис SSH должен быть запущен и слушать на порту 22"
+
+  - id: "LAB-03"
+    title: "Пользователи"
+    difficulty: "beginner"
+    estimated_time: 25
+    prerequisites: ["LAB-02"]
+    tasks:
+      - id: "student-user"
+        type: "user_exists"
+        username: "student"
+    theory: |
+      # Пользователи
+
+      Linux — многопользовательская система.
+      Каждый пользователь имеет свои файлы и права.
+    hints:
+      - "Используйте: sudo adduser student"
+      - "Установите пароль"
+    solution: "Создайте пользователя student: sudo adduser student"
+
+  - id: "LAB-04"
+    title: "Права доступа"
+    difficulty: "beginner"
+    estimated_time: 20
+    prerequisites: ["LAB-03"]
+    tasks:
+      - id: "understand-chmod"
+        type: "custom_message"
+        description: "Поймите систему прав доступа"
+    theory: |
+      # Права доступа
+
+      Каждый файл имеет владельца и права доступа (rwx).
+      r — read, w — write, x — execute.
+    hints:
+      - "Введите: ls -l"
+      - "Вы увидите права вроде: -rw-r--r--"
+    solution: "Узнайте права файлов: ls -la"
+
+  - id: "LAB-05"
+    title: "Файловая система"
+    difficulty: "beginner"
+    estimated_time: 25
+    prerequisites: ["LAB-04"]
+    tasks:
+      - id: "explore-fs"
+        type: "directory_exists"
+        path: "/etc"
+    theory: |
+      # Файловая система Linux
+
+      Linux использует иерархическую файловую систему:
+      / — корень
+      /home — домашние директории пользователей
+      /etc — конфигурация
+      /var — логи и данные
+    hints:
+      - "Исследуйте: cd /etc && ls"
+      - "Вернитесь домой: cd ~"
+    solution: "Изучите структуру: ls -la / && ls -la /etc && ls -la /home"
+
+  - id: "LAB-06"
+    title: "Процессы"
+    difficulty: "beginner"
+    estimated_time: 20
+    prerequisites: ["LAB-05"]
+    tasks:
+      - id: "list-processes"
+        type: "process_exists"
+        process: "systemd"
+    theory: |
+      # Процессы
+
+      Процесс — это запущённая программа.
+      Каждый процесс имеет ID (PID) и состояние.
+    hints:
+      - "Посмотрите процессы: ps aux"
+      - "Используйте top для интерактивного просмотра"
+    solution: "Выполните: ps aux | head && top"
+
+  - id: "LAB-07"
+    title: "IP-адрес моего сервера"
+    difficulty: "intermediate"
+    estimated_time: 20
+    prerequisites: ["LAB-06"]
+    tasks:
+      - id: "find-ip"
+        type: "custom_message"
+        description: "Найдите IP-адрес вашего сервера"
+    theory: |
+      # IP-адрес
+
+      IP-адрес — это адрес вашего компьютера в сети.
+      Например: 192.168.1.100
+    hints:
+      - "Используйте: ip addr show"
+      - "Или: hostname -I"
+    solution: "Выполните: ip addr show или hostname -I"
+
+  - id: "LAB-08"
+    title: "Что такое порт"
+    difficulty: "intermediate"
+    estimated_time: 20
+    prerequisites: ["LAB-07"]
+    tasks:
+      - id: "understand-ports"
+        type: "custom_message"
+        description: "Поймите концепцию портов"
+    theory: |
+      # Порты
+
+      Порт — это канал коммуникации.
+      Каждый сервис слушает на определённом порту.
+      SSH на 22, HTTP на 80, HTTPS на 443.
+    hints:
+      - "Посмотрите открытые порты: sudo netstat -tulpn"
+      - "Или: sudo ss -tulpn"
+    solution: "Выполните: sudo ss -tulpn"
+
+  - id: "LAB-09"
+    title: "Проверяем связь"
+    difficulty: "intermediate"
+    estimated_time: 15
+    prerequisites: ["LAB-08"]
+    tasks:
+      - id: "ping-test"
+        type: "custom_message"
+        description: "Проверьте связь с интернетом"
+    theory: |
+      # Проверка связи (Ping)
+
+      ping отправляет пакеты и проверяет, получит ли их ответ.
+      Это помогает диагностировать сетевые проблемы.
+    hints:
+      - "Пингуйте шлюз: ping 8.8.8.8"
+      - "Или сервер: ping google.com"
+    solution: "Выполните: ping -c 4 8.8.8.8"
+
+  - id: "LAB-10"
+    title: "Маршрутизация"
+    difficulty: "intermediate"
+    estimated_time: 20
+    prerequisites: ["LAB-09"]
+    tasks:
+      - id: "check-routes"
+        type: "custom_message"
+        description: "Посмотрите таблицу маршрутов"
+    theory: |
+      # Маршрутизация
+
+      Маршруты определяют, куда отправляются пакеты.
+      Каждый маршрут имеет назначение и gateway.
+    hints:
+      - "Используйте: route -n"
+      - "Или: ip route show"
+    solution: "Выполните: ip route show"
+
+  - id: "LAB-11"
+    title: "DNS"
+    difficulty: "intermediate"
+    estimated_time: 20
+    prerequisites: ["LAB-10"]
+    tasks:
+      - id: "dns-resolve"
+        type: "custom_message"
+        description: "Проверьте DNS резолюцию"
+    theory: |
+      # DNS
+
+      DNS преобразует доменные имена (google.com) в IP-адреса.
+      Без DNS вам пришлось бы помнить IP каждого сайта.
+    hints:
+      - "Используйте: nslookup google.com"
+      - "Или: dig google.com"
+    solution: "Выполните: nslookup google.com"
+
+  - id: "LAB-12"
+    title: "Firewall"
+    difficulty: "intermediate"
+    estimated_time: 25
+    prerequisites: ["LAB-11"]
+    tasks:
+      - id: "firewall-enabled"
+        type: "service_running"
+        service: "ufw"
+    theory: |
+      # Firewall
+
+      Firewall контролирует, какой трафик допускается.
+      На Ubuntu используется UFW — простой интерфейс к iptables.
+    hints:
+      - "Проверьте статус: sudo ufw status"
+      - "Разрешите SSH: sudo ufw allow 22/tcp"
+    solution: "Выполните: sudo ufw status && sudo ufw allow 22/tcp"
+
+  - id: "LAB-13"
+    title: "Мой первый Web Server"
+    difficulty: "intermediate"
+    estimated_time: 30
+    prerequisites: ["LAB-12"]
+    tasks:
+      - id: "nginx-installed"
+        type: "package_installed"
+        package: "nginx"
+      - id: "nginx-running"
+        type: "service_running"
+        service: "nginx"
+      - id: "port-80"
+        type: "port_open"
+        port: 80
+    theory: |
+      # Nginx — Web Server
+
+      Nginx — это быстрый и надёжный веб-сервер.
+      Он обслуживает HTML-страницы и другой контент.
+    hints:
+      - "Установите: sudo apt install nginx"
+      - "Запустите: sudo systemctl start nginx"
+    solution: "sudo apt install nginx && sudo systemctl start nginx"
+
+  - id: "LAB-14"
+    title: "Своя веб-страница"
+    difficulty: "intermediate"
+    estimated_time: 25
+    prerequisites: ["LAB-13"]
+    tasks:
+      - id: "index-html"
+        type: "file_exists"
+        path: "/var/www/html/index.html"
+    theory: |
+      # HTML страница
+
+      HTML — язык разметки для веб-страниц.
+      Nginx обслуживает файлы из /var/www/html/
+    hints:
+      - "Отредактируйте: sudo nano /var/www/html/index.html"
+      - "Откройте в браузере: http://localhost"
+    solution: "Создайте HTML: echo '<h1>Hello</h1>' | sudo tee /var/www/html/index.html"
+
+  - id: "LAB-15"
+    title: "Логи сервера"
+    difficulty: "intermediate"
+    estimated_time: 20
+    prerequisites: ["LAB-14"]
+    tasks:
+      - id: "access-logs"
+        type: "file_exists"
+        path: "/var/log/nginx/access.log"
+    theory: |
+      # Логи
+
+      Логи помогают понять, что происходит на сервере.
+      Nginx пишет логи в /var/log/nginx/
+    hints:
+      - "Посмотрите логи: sudo tail -f /var/log/nginx/access.log"
+      - "Откройте браузер и обновите страницу"
+    solution: "Выполните: sudo tail -20 /var/log/nginx/access.log"
+
+  - id: "LAB-16"
+    title: "Systemd"
+    difficulty: "intermediate"
+    estimated_time: 25
+    prerequisites: ["LAB-15"]
+    tasks:
+      - id: "understand-systemd"
+        type: "custom_message"
+        description: "Поймите, как работают сервисы"
+    theory: |
+      # Systemd
+
+      systemd управляет сервисами (процессами).
+      Каждый сервис описывается в .service файле.
+    hints:
+      - "Посмотрите сервисы: systemctl list-units"
+      - "Статус сервиса: systemctl status nginx"
+    solution: "Выполните: systemctl status nginx && systemctl is-active nginx"
+
+  - id: "LAB-17"
+    title: "Автозапуск"
+    difficulty: "intermediate"
+    estimated_time: 20
+    prerequisites: ["LAB-16"]
+    tasks:
+      - id: "nginx-enabled"
+        type: "service_enabled"
+        service: "nginx"
+    theory: |
+      # Автозапуск (Enable)
+
+      Сервис можно сделать автоматически запускаемым.
+      Тогда он будет запускаться при загрузке системы.
+    hints:
+      - "Включите автозапуск: sudo systemctl enable nginx"
+      - "Проверьте: sudo systemctl is-enabled nginx"
+    solution: "Выполните: sudo systemctl enable nginx"
+
+  - id: "LAB-18"
+    title: "Установка ПО"
+    difficulty: "beginner"
+    estimated_time: 20
+    prerequisites: ["LAB-17"]
+    tasks:
+      - id: "apt-basics"
+        type: "custom_message"
+        description: "Научитесь устанавливать пакеты"
+    theory: |
+      # APT — Package Manager
+
+      apt — менеджер пакетов в Ubuntu.
+      Используется для установки и удаления ПО.
+    hints:
+      - "Список пакетов: apt list --installed"
+      - "Поиск: apt search curl"
+      - "Установка: sudo apt install curl"
+    solution: "Выполните: sudo apt install curl && curl --version"
+
+  - id: "LAB-19"
+    title: "Что такое контейнер"
+    difficulty: "intermediate"
+    estimated_time: 30
+    prerequisites: ["LAB-18"]
+    tasks:
+      - id: "docker-installed"
+        type: "package_installed"
+        package: "docker.io"
+      - id: "docker-running"
+        type: "service_running"
+        service: "docker"
+    theory: |
+      # Docker — Контейнеризация
+
+      Docker изолирует приложения в контейнеры.
+      Каждый контейнер имеет свою ОС, библиотеки и код.
+    hints:
+      - "Установите: sudo apt install docker.io"
+      - "Запустите: sudo systemctl start docker"
+    solution: "sudo apt install docker.io && sudo systemctl start docker"
+
+  - id: "LAB-20"
+    title: "Docker Image"
+    difficulty: "intermediate"
+    estimated_time: 25
+    prerequisites: ["LAB-19"]
+    tasks:
+      - id: "docker-images"
+        type: "custom_message"
+        description: "Скачайте Docker образ"
+    theory: |
+      # Docker Images
+
+      Image — это шаблон для создания контейнера.
+      Образы хранятся на Docker Hub.
+    hints:
+      - "Скачайте образ: docker pull ubuntu"
+      - "Посмотрите образы: docker images"
+    solution: "Выполните: docker pull ubuntu && docker images"
+
+  - id: "LAB-21"
+    title: "Docker Volumes"
+    difficulty: "intermediate"
+    estimated_time: 25
+    prerequisites: ["LAB-20"]
+    tasks:
+      - id: "understand-volumes"
+        type: "custom_message"
+        description: "Поймите, как работают volumes"
+    theory: |
+      # Docker Volumes
+
+      Volumes — это способ хранить данные в контейнерах.
+      Данные сохраняются даже после удаления контейнера.
+    hints:
+      - "Создайте volume: docker volume create my-data"
+      - "Посмотрите: docker volume ls"
+    solution: "Выполните: docker volume create test && docker volume ls"
+
+  - id: "LAB-22"
+    title: "Docker Network"
+    difficulty: "intermediate"
+    estimated_time: 25
+    prerequisites: ["LAB-21"]
+    tasks:
+      - id: "docker-network"
+        type: "custom_message"
+        description: "Узнайте о Docker сетях"
+    theory: |
+      # Docker Networks
+
+      Networks позволяют контейнерам взаимодействовать.
+      Каждый контейнер может быть подключен к сети.
+    hints:
+      - "Посмотрите сети: docker network ls"
+      - "Создайте сеть: docker network create mynet"
+    solution: "Выполните: docker network create test && docker network ls"
+
+  - id: "LAB-23"
+    title: "Docker Compose"
+    difficulty: "intermediate"
+    estimated_time: 30
+    prerequisites: ["LAB-22"]
+    tasks:
+      - id: "docker-compose"
+        type: "package_installed"
+        package: "docker-compose"
+    theory: |
+      # Docker Compose
+
+      Compose позволяет управлять несколькими контейнерами одновременно.
+      Конфигурация описывается в docker-compose.yml
+    hints:
+      - "Установите: sudo apt install docker-compose"
+      - "Проверьте: docker-compose --version"
+    solution: "sudo apt install docker-compose && docker-compose --version"
+
+  - id: "LAB-24"
+    title: "Свой сервис"
+    difficulty: "advanced"
+    estimated_time: 40
+    prerequisites: ["LAB-23"]
+    tasks:
+      - id: "custom-docker"
+        type: "custom_message"
+        description: "Создайте собственный Docker образ"
+    theory: |
+      # Dockerfile
+
+      Dockerfile описывает, как собрать образ.
+      Используются инструкции: FROM, RUN, COPY, EXPOSE, CMD.
+    hints:
+      - "Создайте Dockerfile"
+      - "Напишите простой Python скрипт"
+      - "Соберите образ: docker build -t myapp ."
+    solution: "Создайте Dockerfile и соберите образ"
+
+  - id: "LAB-25"
+    title: "Сетевое хранилище"
+    difficulty: "advanced"
+    estimated_time: 35
+    prerequisites: ["LAB-24"]
+    tasks:
+      - id: "understand-nas"
+        type: "custom_message"
+        description: "Узнайте о NAS и SMB"
+    theory: |
+      # NAS и SMB
+
+      NAS — сетевое хранилище.
+      SMB — протокол для общего доступа к файлам.
+    hints:
+      - "Установите Samba: sudo apt install samba"
+      - "Настройте общую папку"
+    solution: "sudo apt install samba && systemctl status samba"
+
+  - id: "LAB-26"
+    title: "Резервная копия"
+    difficulty: "advanced"
+    estimated_time: 30
+    prerequisites: ["LAB-25"]
+    tasks:
+      - id: "backup-strategy"
+        type: "custom_message"
+        description: "Создайте backup важных файлов"
+    theory: |
+      # Backup
+
+      Backup — копия ваших данных на случай потери.
+      Используются инструменты: rsync, tar, backup сервисы.
+    hints:
+      - "Используйте tar: tar -czf backup.tar.gz /home"
+      - "Или rsync: rsync -av /home /backup"
+    solution: "Выполните: tar -czf /tmp/backup.tar.gz /home/$(whoami)"
+
+  - id: "LAB-27"
+    title: "Защищённый доступ"
+    difficulty: "advanced"
+    estimated_time: 30
+    prerequisites: ["LAB-26"]
+    tasks:
+      - id: "ssh-keys"
+        type: "custom_message"
+        description: "Настройте SSH-ключи"
+    theory: |
+      # SSH-ключи
+
+      Вместо пароля используйте ключи.
+      Это безопаснее и удобнее.
+    hints:
+      - "Создайте ключ: ssh-keygen -t rsa -b 4096"
+      - "Скопируйте публичный ключ на сервер"
+    solution: "Выполните: ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa"
+
+  - id: "LAB-28"
+    title: "HTTPS"
+    difficulty: "advanced"
+    estimated_time: 30
+    prerequisites: ["LAB-27"]
+    tasks:
+      - id: "https-cert"
+        type: "custom_message"
+        description: "Получите SSL сертификат"
+    theory: |
+      # HTTPS
+
+      HTTPS шифрует трафик между браузером и сервером.
+      Используются SSL/TLS сертификаты.
+    hints:
+      - "Установите certbot: sudo apt install certbot"
+      - "Получите сертификат для своего домена"
+    solution: "sudo apt install certbot python3-certbot-nginx"
+
+  - id: "LAB-29"
+    title: "Доступ извне"
+    difficulty: "advanced"
+    estimated_time: 35
+    prerequisites: ["LAB-28"]
+    tasks:
+      - id: "remote-access"
+        type: "custom_message"
+        description: "Настройте безопасный удалённый доступ"
+    theory: |
+      # Удалённый доступ
+
+      VPN или Tailscale дают безопасный доступ извне.
+      Не открывайте порты прямо на интернет.
+    hints:
+      - "Установите WireGuard или Tailscale"
+      - "Генерируйте конфиги"
+    solution: "curl -fsSL https://tailscale.com/install.sh | sh"
+
+  - id: "LAB-30"
+    title: "Собери свой HomeLab"
+    difficulty: "expert"
+    estimated_time: 120
+    prerequisites: ["LAB-29"]
+    tasks:
+      - id: "ssh-configured"
+        type: "service_running"
+        service: "ssh"
+      - id: "web-running"
+        type: "port_open"
+        port: 80
+      - id: "docker-ready"
+        type: "service_running"
+        service: "docker"
+      - id: "backup-exists"
+        type: "custom_message"
+        description: "Настройте backup"
+    theory: |
+      # Финальный проект
+
+      Теперь вы готовы собрать полноценный домашний сервер.
+      Комбинируйте все, что вы изучили, в одной системе.
+    hints:
+      - "Включите SSH"
+      - "Запустите веб-сервер"
+      - "Настройте Docker"
+      - "Создайте backup"
+      - "Включите firewall"
+    solution: "Выполните все требования и получите ваш HomeLab!"
