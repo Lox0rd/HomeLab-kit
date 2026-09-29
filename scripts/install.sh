@@ -233,9 +233,11 @@ db = SessionLocal()
 # Check if admin already exists
 admin = db.query(User).filter(User.username == "admin").first()
 if not admin:
+    # Truncate password to 72 bytes for bcrypt
+    admin_password = "$ADMIN_PASSWORD"[:72]
     admin_user = User(
         username="admin",
-        hashed_password=hash_password("$ADMIN_PASSWORD"),
+        hashed_password=hash_password(admin_password),
         is_admin=True
     )
     db.add(admin_user)
